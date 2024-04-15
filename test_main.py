@@ -4,13 +4,16 @@ from main import Category, Product
 
 @pytest.fixture
 def test_category():
-    return Category('Сок', 'Натуральный, без сахара', ['Яблочный', 'Персиковый', 'Апельсиновый'])
+    return Category('Сок', 'Натуральный, без сахара', ['Яблочный', 'Персиковый', 'Апельсиновый'], 1, 5)
 
 
 def test_init_category(test_category):
     assert test_category.title == 'Сок'
     assert test_category.description == 'Натуральный, без сахара'
     assert test_category.products == ['Яблочный', 'Персиковый', 'Апельсиновый']
+    assert test_category.total_category == 1
+    assert test_category.total_unique == 5
+    assert test_category.all_categories == test_category.all_categories
 
 
 @pytest.fixture
