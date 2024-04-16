@@ -2,18 +2,16 @@ class Category:
     title: str
     description: str
     products: list
-    total_category: int
-    total_unique: int
-    all_categories: list
+    total_category = 0
+    total_unique = 0
 
 
-    def __init__(self, title, description, products, total_category, total_unique):
+    def __init__(self, title, description, products):
         self.title = title
         self.description = description
         self.products = products
-        self.total_category = total_category
-        self.total_unique = total_unique
-        self.all_categories = title
+        Category.total_category += 1
+        Category.total_unique += len(set(self.products))
 
 
 class Product:
