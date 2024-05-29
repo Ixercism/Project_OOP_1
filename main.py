@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 class Category:
     title: str
     description: str
@@ -76,6 +79,13 @@ class Product:
     def creating_product(cls, product_data: dict):
         return cls(**product_data)
 
+    def adding_product(self, list_of_product):
+        for prod in list_of_product:
+            if prod.title == self.title:
+                prod.quantity += self.quantity
+                if self.__price > prod.__price:
+                    prod.__price = self.__price
+
     @property
     def price(self):
         return self.__price
@@ -92,3 +102,48 @@ class Product:
             if user_answer == 'y':
                 self.__price = new_price
                 print('Цена понижена')
+
+
+class Smartphone(Product):
+    def __init__(self, title: str, description: str, price: float, quantity: int,
+                 performance: float, model: str, memory: int, color: str):
+        super().__init__(title, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.memory = memory
+        self. color = color
+
+
+class LawnGrass(Product):
+    def __init__(self, title: str, description: str, price: float, quantity: int,
+                 manufacturer_country: str, germination_period: str, color: str):
+        super().__init__(self, title, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
+
+
+class AbstractProduct(ABC):
+    @classmethod
+    @abstractmethod
+    def creating_product(cls, *args, **kwargs):
+        pass
+
+    @property
+    @abstractmethod
+    def price(self):
+        pass
+
+    @price.setter
+    def price(self, value):
+        pass
+
+
+class PrintMixin:
+    def __repr__(self):
+
+        val = []
+
+        for i in self.__dict__.values():
+            val.append(i)
+        return f'{self.__class__.__name__}{val}'
